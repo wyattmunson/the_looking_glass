@@ -28,10 +28,22 @@ pipeline:
                       - name: repo_name
                         type: String
                         value: <+input>
+                      - name: description
+                        type: String
+                        value: <+input>
+                      - name: service_name
+                        type: String
+                        value: <+input>
                     outputVariables:
                       - name: repo_name
                         type: String
                         value: repo_name
+                      - name: description
+                        type: String
+                        value: description
+                      - name: service_name
+                        type: String
+                        value: service_name
                   timeout: 10m
               - step:
                   type: HarnessApproval
@@ -70,14 +82,14 @@ pipeline:
                       varFiles:
                         - varFile:
                             spec:
-                              content: |
+                              content: |-
                                 repo_name=<+steps.get_values.output.outputVariables.repo_name>
+                                service_name=<+steps.get_values.output.outputVariables.service_name>
+                                description=<+steps.get_values.output.outputVariables.description>
+                                project_id=<+project.identifier>
+                                account_id=<+account.identifier>
+                                org_id=<+org.identifier>
                             identifier: input_config
-                            type: Inline
-                        - varFile:
-                            spec:
-                              content: <+input>
-                            identifier: service_name
                             type: Inline
                       secretManagerRef: account.harnessSecretManager
                       skipRefreshCommand: false
