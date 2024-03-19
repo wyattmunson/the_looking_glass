@@ -23,7 +23,12 @@ pipeline:
                     source:
                       type: Inline
                       spec:
-                        script: "echo repo_name: $repo_name"
+                        script: |-
+                          echo repo_name: $repo_name
+
+                          echo account_id: <+account.identifier>
+                          echo org_id: <+org.identifier>
+                          echo project_id: <+project.identifier>
                     environmentVariables:
                       - name: repo_name
                         type: String
