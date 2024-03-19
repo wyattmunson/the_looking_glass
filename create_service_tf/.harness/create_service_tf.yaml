@@ -28,4 +28,34 @@ pipeline:
                       disallowPipelineExecutor: false
                     approverInputs: []
                   timeout: 1d
+              - step:
+                  type: TerraformPlan
+                  name: plan
+                  identifier: plan
+                  spec:
+                    provisionerIdentifier: service_provisioner
+                    configuration:
+                      command: Apply
+                      configFiles:
+                        store:
+                          spec:
+                            connectorRef: account.poc_github
+                            repoName: the_looking_glass
+                            gitFetchType: Branch
+                            branch: main
+                            folderPath: create_service_tf/terraform
+                          type: Github
+                      varFiles:
+                        - varFile:
+                            spec:
+                              content: <+input>
+                            identifier: repo_name
+                            type: Inline
+                        - varFile:
+                            spec:
+                              content: <+input>
+                            identifier: service_name
+                            type: Inline
+                      secretManagerRef: account.harnessSecretManager
+                  timeout: 10m
         tags: {}
