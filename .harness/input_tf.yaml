@@ -1,0 +1,28 @@
+inputSet:
+  pipeline:
+    identifier: create_service_tf
+    stages:
+      - stage:
+          identifier: create_service
+          type: Custom
+          spec:
+            execution:
+              steps:
+                - step:
+                    identifier: get_values
+                    type: ShellScript
+                    spec:
+                      environmentVariables:
+                        - name: repo_name
+                          type: String
+                          value: fake-repo
+                        - name: description
+                          type: String
+                          value: ""
+                        - name: service_name
+                          type: String
+                          value: terraformed_service
+  name: input_tf
+  identifier: input_tf
+  orgIdentifier: default
+  projectIdentifier: default_project
