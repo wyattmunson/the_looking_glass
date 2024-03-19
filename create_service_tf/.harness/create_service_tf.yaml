@@ -95,5 +95,5 @@ pipeline:
                       skipRefreshCommand: false
                   timeout: 10m
                   when:
-                    stageStatus: Failure
+                    stageStatus: Success
         tags: {}
